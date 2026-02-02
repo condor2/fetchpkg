@@ -401,23 +401,23 @@ build_install() {
 		### else if errors show error and prompt to remove temporary package files
 		if ! (tail -n5 "$log" | grep "ERROR" &>/dev/null); then
 			if "$install_pkg" ; then
-  				alog "begin installing package: $(ls "$build_tmp"/"$pkgname"/"$pkgname"-[0-9]*.pkg.tar.xz 2>/dev/null | tail -1)"
+  				alog "begin installing package: $(ls "$build_tmp"/"$pkgname"/"$pkgname"-[0-9]*.pkg.tar.zst 2>/dev/null | tail -1)"
   				if "$confirm" ; then
-  					if (ls "$build_tmp"/"$pkgname"/"$pkgname"-[0-9]*.pkg.tar.xz &>/dev/null); then
+  					if (ls "$build_tmp"/"$pkgname"/"$pkgname"-[0-9]*.pkg.tar.zst &>/dev/null); then
 						echo -e "\n${Y} |${M}<${Y}${B}#${G}- ${M}Install Package: ${Y}$pkgname${CO}"
-						sudo script -q -a -c "pacman --color auto -U "$build_tmp"/"$pkgname"/"$pkgname"-[0-9]*.pkg.tar.xz ; echo "$?" > /tmp/ex" "$log"
+						sudo script -q -a -c "pacman --color auto -U "$build_tmp"/"$pkgname"/"$pkgname"-[0-9]*.pkg.tar.zst ; echo "$?" > /tmp/ex" "$log"
 					else
 						echo -e "\n${Y} |${M}<${Y}${B}#${G}- ${M}Install Package: ${Y}$pkgname${CO}"
-						sudo script -q -a -c "pacman -U "$build_tmp"/"$pkgname"/"$pkgname"-r[0-9]*.pkg.tar.xz" "$log"
+						sudo script -q -a -c "pacman -U "$build_tmp"/"$pkgname"/"$pkgname"-r[0-9]*.pkg.tar.zst" "$log"
 					fi
 
 				else
-					if (ls "$build_tmp"/"$pkgname"/"$pkgname"-[0-9]*.pkg.tar.xz &>/dev/null); then
+					if (ls "$build_tmp"/"$pkgname"/"$pkgname"-[0-9]*.pkg.tar.zst &>/dev/null); then
 						echo -e "\n${Y} |${M}<${Y}${B}#${G}- ${M}Install Package: ${Y}$pkgname${CO}"
-						sudo script -q -a -c "pacman --noconfirm -U "$build_tmp"/"$pkgname"/"$pkgname"-[0-9]*.pkg.tar.xz" "$log"
+						sudo script -q -a -c "pacman --noconfirm -U "$build_tmp"/"$pkgname"/"$pkgname"-[0-9]*.pkg.tar.zst" "$log"
 					else
 						echo -e "\n${Y} |${M}<${Y}${B}#${G}- ${M}Install Package: ${Y}$pkgname${CO}"
-						sudo script -q -a -c "pacman --noconfirm -U "$build_tmp"/"$pkgname"/"$pkgname"-r[0-9]*.pkg.tar.xz" "$log"
+						sudo script -q -a -c "pacman --noconfirm -U "$build_tmp"/"$pkgname"/"$pkgname"-r[0-9]*.pkg.tar.zst" "$log"
 					fi
 				fi
 
@@ -428,13 +428,13 @@ build_install() {
 				fi
 			else
 				continue=true
-				echo -e "${Y} |${M}<${Y}${B}#${G}- ${M}Package saved to cache: ${Y}$cache_dir/$pkgname*.pkg.tar.xz${CO}"
+				echo -e "${Y} |${M}<${Y}${B}#${G}- ${M}Package saved to cache: ${Y}$cache_dir/$pkgname*.pkg.tar.zst${CO}"
 			fi
 
 			if "$continue" ; then
 				if "$cache" ; then
-					alog "copy build package to cacke: $pkgname-*.pkg.tar.xz > $cache_dir"
-					sudo cp $pkgname-*.pkg.tar.xz "$cache_dir"
+					alog "copy build package to cacke: $pkgname-*.pkg.tar.zst > $cache_dir"
+					sudo cp $pkgname-*.pkg.tar.zst "$cache_dir"
 				fi
 			
 				alog "remove tmp build files: $pkgname $pkgname.tar.gz"
@@ -457,18 +457,18 @@ build_install() {
 
 									if ! (tail -1 "$log" | grep "ERROR" &>/dev/null); then
 										if "$install_pkg" ; then
-							  				alog "begin installing package: $(ls "$cache_dir"/"$pkgname"-[0-9]*.pkg.tar.xz | tail -1)"
+							  				alog "begin installing package: $(ls "$cache_dir"/"$pkgname"-[0-9]*.pkg.tar.zst | tail -1)"
   											if "$confirm" ; then
-							  					if (ls "$build_tmp"/"$pkgname"/"$pkgname"-[0-9]*.pkg.tar.xz &>/dev/null); then
-													sudo script -q -a -c "pacman -U "$build_tmp"/"$pkgname"/"$pkgname"-[0-9]*.pkg.tar.xz" "$log"
+							  					if (ls "$build_tmp"/"$pkgname"/"$pkgname"-[0-9]*.pkg.tar.zst &>/dev/null); then
+													sudo script -q -a -c "pacman -U "$build_tmp"/"$pkgname"/"$pkgname"-[0-9]*.pkg.tar.zst" "$log"
 												else
-													sudo script -q -a -c "pacman -U "$build_tmp"/"$pkgname"/"$pkgname"-r[0-9]*.pkg.tar.xz" "$log"
+													sudo script -q -a -c "pacman -U "$build_tmp"/"$pkgname"/"$pkgname"-r[0-9]*.pkg.tar.zst" "$log"
 												fi
 											else
-												if (ls "$build_tmp"/"$pkgname"/"$pkgname"-[0-9]*.pkg.tar.xz &>/dev/null); then
-													sudo script -q -a -c "pacman --noconfirm -U "$build_tmp"/"$pkgname"/"$pkgname"-[0-9]*.pkg.tar.xz" "$log"
+												if (ls "$build_tmp"/"$pkgname"/"$pkgname"-[0-9]*.pkg.tar.zst &>/dev/null); then
+													sudo script -q -a -c "pacman --noconfirm -U "$build_tmp"/"$pkgname"/"$pkgname"-[0-9]*.pkg.tar.zst" "$log"
 												else
-													sudo script -q -a -c "pacman --noconfirm -U "$build_tmp"/"$pkgname"/"$pkgname"-r[0-9]*.pkg.tar.xz" "$log"
+													sudo script -q -a -c "pacman --noconfirm -U "$build_tmp"/"$pkgname"/"$pkgname"-r[0-9]*.pkg.tar.zst" "$log"
 												fi
 											fi
 
@@ -478,14 +478,14 @@ build_install() {
 												continue=true
 											fi
 										else
-											echo -e "${Y} |${M}<${Y}${B}#${G}- ${M}Package saved to cache: ${Y}$cache_dir/$pkgname*.pkg.tar.xz${CO}"	
+											echo -e "${Y} |${M}<${Y}${B}#${G}- ${M}Package saved to cache: ${Y}$cache_dir/$pkgname*.pkg.tar.zst${CO}"	
 											continue=true
 										fi
 										
 										if "$continue" ; then
 											if "$cache" ; then
-												alog "copy build package to cacke: $pkgname-*.pkg.tar.xz > $cache_dir"
-												sudo cp $pkgname-*.pkg.tar.xz "$cache_dir"
+												alog "copy build package to cacke: $pkgname-*.pkg.tar.zst > $cache_dir"
+												sudo cp $pkgname-*.pkg.tar.zst "$cache_dir"
 											fi
 
 											alog "remove tmp build files: $pkgname $pkgname.tar.gz"
@@ -564,19 +564,19 @@ check_updates() {
   					;;
   			esac
   		elif (grep -w "$pkgname" <<<"$installed_build" &>/dev/null); then
-  			if (ls "$cache_dir"/"$pkgname"-[0-9]*.pkg.tar.xz &>/dev/null) || (ls "$cache_dir"/"$pkgname"-r[0-9]*.pkg.tar.xz &>/dev/null); then
+  			if (ls "$cache_dir"/"$pkgname"-[0-9]*.pkg.tar.zst &>/dev/null) || (ls "$cache_dir"/"$pkgname"-r[0-9]*.pkg.tar.zst &>/dev/null); then
   				alog "package found in cache and up to date: $pkgname"
   				echo -e "${Y} |${M}<${Y}${B}#${G}- ${M}Package in cache is up to date:${G} $(sed "s/.*$pkgname/$pkgname/" <<<"$installed_build" | awk '{print $1,$2}')"
   				echo -en "${Y} |${M}-${Y}${B}#${G}> ${M}Reinstall package? ${M}[${G}y${M}/${G}n${M}]${G}: ${CO}"
   				read input
   						
   				case "$input" in
-  					y|Y|yy|YY|yes|"")	if (ls "$cache_dir"/"$pkgname"-[0-9]*.pkg.tar.xz &>/dev/null); then
-  											alog "begin installing cached package: $(ls "$cache_dir"/"$pkgname"-[0-9]*.pkg.tar.xz | tail -1)"
-  											sudo script -q -a -c "pacman -U $(ls "$cache_dir"/"$pkgname"-[0-9]*.pkg.tar.xz | tail -1)" "$log"
-  										elif (ls "$cache_dir"/"$pkgname"-r[0-9]*.pkg.tar.xz &>/dev/null); then
-  											alog "begin installing cached package: $(ls "$cache_dir"/"$pkgname"-r[0-9]*.pkg.tar.xz | tail -1)"
-  											sudo script -q -a -c "pacman -U $(ls "$cache_dir"/"$pkgname"-r[0-9]*.pkg.tar.xz | tail -1)" "$log"
+  					y|Y|yy|YY|yes|"")	if (ls "$cache_dir"/"$pkgname"-[0-9]*.pkg.tar.zst &>/dev/null); then
+  											alog "begin installing cached package: $(ls "$cache_dir"/"$pkgname"-[0-9]*.pkg.tar.zst | tail -1)"
+  											sudo script -q -a -c "pacman -U $(ls "$cache_dir"/"$pkgname"-[0-9]*.pkg.tar.zst | tail -1)" "$log"
+  										elif (ls "$cache_dir"/"$pkgname"-r[0-9]*.pkg.tar.zst &>/dev/null); then
+  											alog "begin installing cached package: $(ls "$cache_dir"/"$pkgname"-r[0-9]*.pkg.tar.zst | tail -1)"
+  											sudo script -q -a -c "pacman -U $(ls "$cache_dir"/"$pkgname"-r[0-9]*.pkg.tar.zst | tail -1)" "$log"
   										fi
   										continue=true
   					;;
@@ -601,18 +601,18 @@ check_updates() {
   					;;
   				esac
   			fi
-  		elif (ls "$cache_dir"/"$pkgname"-[0-9]*.pkg.tar.xz &>/dev/null) || (ls "$cache_dir"/"$pkgname"-r[0-9]*.pkg.tar.xz &>/dev/null); then
+  		elif (ls "$cache_dir"/"$pkgname"-[0-9]*.pkg.tar.zst &>/dev/null) || (ls "$cache_dir"/"$pkgname"-r[0-9]*.pkg.tar.zst &>/dev/null); then
   			echo -e "${Y} |${M}<${Y}${B}#${G}- ${M}Package in cache but not installed:${G} $pkgname"
   			echo -en "${Y} |${M}-${Y}${B}#${G}> ${M}Reinstall cached package? ${M}[${G}y${M}/${G}n${M}]${G}: ${CO}"
   			read input
   						
   			case "$input" in
-  				y|Y|yy|YY|yes|"")	if (ls "$cache_dir"/"$pkgname"-[0-9]*.pkg.tar.xz &>/dev/null); then
-  										alog "begin installing cached package: $(ls "$cache_dir"/"$pkgname"-[0-9]*.pkg.tar.xz | tail -1)"
-  										sudo script -q -a -c "pacman -U $(ls "$cache_dir"/"$pkgname"-[0-9]*.pkg.tar.xz | tail -1)" "$log"
-  									elif (ls "$cache_dir"/"$pkgname"-r[0-9]*.pkg.tar.xz &>/dev/null); then
-  										alog "begin installing cached package: $(ls "$cache_dir"/"$pkgname"-r[0-9]*.pkg.tar.xz | tail -1)"
-  										sudo script -q -a -c "pacman -U $(ls "$cache_dir"/"$pkgname"-r[0-9]*.pkg.tar.xz | tail -1)" "$log"
+  				y|Y|yy|YY|yes|"")	if (ls "$cache_dir"/"$pkgname"-[0-9]*.pkg.tar.zst &>/dev/null); then
+  										alog "begin installing cached package: $(ls "$cache_dir"/"$pkgname"-[0-9]*.pkg.tar.zst | tail -1)"
+  										sudo script -q -a -c "pacman -U $(ls "$cache_dir"/"$pkgname"-[0-9]*.pkg.tar.zst | tail -1)" "$log"
+  									elif (ls "$cache_dir"/"$pkgname"-r[0-9]*.pkg.tar.zst &>/dev/null); then
+  										alog "begin installing cached package: $(ls "$cache_dir"/"$pkgname"-r[0-9]*.pkg.tar.zst | tail -1)"
+  										sudo script -q -a -c "pacman -U $(ls "$cache_dir"/"$pkgname"-r[0-9]*.pkg.tar.zst | tail -1)" "$log"
   									fi
   									continue=true
   				;;
@@ -682,10 +682,10 @@ install_failed(){
 
 		case "$input" in
 			y|Y|yy|YY|yes|"")	alog "reattempt install for: $pkgname"
-								if (ls "$build_tmp"/"$pkgname"/"$pkgname"-[0-9]*.pkg.tar.xz &>/dev/null); then
-									sudo script -q -a -c "pacman -U "$build_tmp"/"$pkgname"/"$pkgname"-[0-9]*.pkg.tar.xz" "$log"
+								if (ls "$build_tmp"/"$pkgname"/"$pkgname"-[0-9]*.pkg.tar.zst &>/dev/null); then
+									sudo script -q -a -c "pacman -U "$build_tmp"/"$pkgname"/"$pkgname"-[0-9]*.pkg.tar.zst" "$log"
 								else
-									sudo script -q -a -c "pacman -U "$build_tmp"/"$pkgname"/"$pkgname"-r[0-9]*.pkg.tar.xz" "$log"
+									sudo script -q -a -c "pacman -U "$build_tmp"/"$pkgname"/"$pkgname"-r[0-9]*.pkg.tar.zst" "$log"
 								fi
 							
 								if ! (tail -1 "$log" | grep "3 incorrect password attempts" &>/dev/null); then
