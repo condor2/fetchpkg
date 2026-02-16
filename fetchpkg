@@ -160,7 +160,7 @@ menu() {
 			echo -en "${Y} |${M}-${Y}${B}#${G}> ${CO}"
 			read fetch_query
 
-			if pacman -Si "$fetch_query" &>/dev/null || pacman -Q "$fetch_query" &>/dev/null || curl -s "https://aur.archlinux.org/cgit/aur.git/plain/PKGBUILD?h=$fetch_query" | grep -q "pkgname="; then
+			if pacman -Si "$fetch_query" &>/dev/null || pacman -Q "$fetch_query" &>/dev/null || curl -s "https://aur.archlinux.org/rpc/?v=5&type=info&arg=$fetch_query" | grep -q '"Name":"'"$fetch_query"'"'; then
 				fetch_install
 				break
 			else
