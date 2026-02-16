@@ -155,10 +155,18 @@ menu() {
 	### if 5 update system
 	### if 5 quit and exit
 	case "$input" in
-		1)	echo -e "${Y} |${M}<${Y}${B}#${G}- ${M}Enter name(s) of package(s) to install"
+		1)	while true; do
+			echo -e "${Y} |${M}<${Y}${B}#${G}- ${M}Enter name(s) of package(s) to install"
 			echo -en "${Y} |${M}-${Y}${B}#${G}> ${CO}"
 			read fetch_query
-			fetch_install
+
+			if pacman -Si "$fetch_query" &>/dev/null || pacman -Q "$fetch_query" &>/dev/null || curl -s "https://aur.archlinux.org/cgit/aur.git/plain/PKGBUILD?h=$fetch_query" | grep -q "pkgname="; then
+				fetch_install
+				break
+			else
+				echo -e "${R}Wrong name or package \"$fetch_query\" doesn't exist. Type again.${CO}"
+			fi
+		done
 		;;
 		2)	echo -e "${Y} |${M}<${Y}${B}#${G}- ${M}Enter name(s) of package(s) to remove"
 			echo -en "${Y} |${M}-${Y}${B}#${G}> ${CO}"
